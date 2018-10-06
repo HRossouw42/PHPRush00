@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+
+<?php
+
+	include("includes/db.php");
+
+?>
 <html>
 <head>
 	<title>Inserting Product</title>
@@ -7,7 +13,7 @@
 	
 	<form action="insert_product.php" method="post" enctype="multipart/form-data">
 
-		<table align="center" width="750" border="2" bgcolor="whitesmoke">
+		<table align="center" width="600" border="2" bgcolor="whitesmoke">
 			<tr align="center">
 				<td colspan="7"><h2>Insert New Post Here</h2></td>
 			</tr>
@@ -30,25 +36,42 @@
 									$cat_id = $row_cats['cat_id'];
 									$cat_title = $row_cats['cat_title'];
 							
-									echo "<option>$cat_title</option>";
+									echo "<option value='$cat_id'>$cat_title</option>";
 								}
 						?>
 
 					</select>
-
 				</td>
 			<tr>
 				<td align="right"><b>Product Brand:</b></td>
-				<td><input type="text" name="product_brand" /></td>
+				<td>
+					<select name="product_brand">
+						<option>Select a brand</option>
+						<?php
+								$get_brands = "select * from brands";
+
+								$run_brands = mysqli_query($con, $get_brands);
+							
+								while ($row_brands= mysqli_fetch_array($run_brands))
+								{
+									$brand_id = $row_brands['brand_id'];
+									$brand_title = $row_brands['brand_title'];
+							
+									echo "<option value='$brand_id'>$brand_title</option>";
+								}
+						?>
+
+					</select>
+				</td>
 			<tr>
 				<td align="right"><b>Product Image:</b></td>
-				<td><input type="text" name="product_image" /></td>
+				<td><input type="file" name="product_image" /></td>
 			<tr>
 				<td align="right"><b>Product Price:</b></td>
 				<td><input type="text" name="product_price" /></td>
 			<tr>
 				<td align="right"><b>Product Description:</b></td>
-				<td><input type="text" name="product_desc" /></td>
+				<td><textarea name="product_desc" cols="20" rows="10" ></textarea></td>
 			<tr>
 				<td align="right"><b>Product Keywords:</b></td>
 				<td><input type="text" name="product_keywords" /></td>
