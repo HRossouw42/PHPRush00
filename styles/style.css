@@ -54,8 +54,30 @@ width: 900px;
 	height: 50px;
 	background: lightgrey;
 	color: whitesmoke;
-
 }
+
+#menu{
+	padding: 0;
+	margin: 0;
+	line-height: 45px;
+}
+
+#menu li {
+	list-style: none;
+	display: inline;
+}
+
+#menu a {
+	text-decoration: none;
+	color: white;
+	padding: 8px;
+	margin: 5px;
+	font-size: 18px;
+	font-family: 'Times New Roman', Times, serif;
+}
+
+#menu a:hover{color:darkred; font-weight: bolder; text-decoration: underline;}
+
 .content_wrapper {
 	width: 1000px;
 	height: 800px;
