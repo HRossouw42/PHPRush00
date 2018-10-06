@@ -64,7 +64,9 @@
 			<div id="content_area">content area</div>
 		</div>
 
-		<div id="footer">footer</div>
+		<div id="footer">
+			<h2 style="text-align:center; padding-top:30px">&copy; 2018 by hrossouw@student.wethinkcode.co.za</h2>
+		</div>
 
 
 

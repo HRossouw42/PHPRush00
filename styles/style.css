@@ -83,21 +83,18 @@ width: 900px;
 
 .content_wrapper {
 	width: 1000px;
-	height: 800px;
 	margin:auto;
 	background: grey;
 }
 
 #content_area {
 	width: 800px;
-	height:800px;
 	float:right;
 	background: grey;
 }
 
 #sidebar {
 	width: 200px;
-	height: 800px;
 	background: darkgrey;
 	float: left;
 }
