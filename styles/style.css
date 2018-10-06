@@ -37,13 +37,17 @@ body {background:skyblue;}
 
 .header_wrapper{
 	width:1000px;
-	height:150px;
+	height:100px;
 	margin:auto;
 }
 
-#logo {float:left;}
+#logo {float:left;
+height: 100px;}
 
-#banner {float:right;}
+#banner {float:left;
+height: 100px;
+width: 900px;
+}
 
 .menubar {
 	width: 1000px;
@@ -76,7 +80,7 @@ body {background:skyblue;}
 #footer {
 	width: 1000px;
 	height: 100px;
-	background: darkgrey;
+	background: lightgray;
 	clear:both;
 	margin:auto;
 }
