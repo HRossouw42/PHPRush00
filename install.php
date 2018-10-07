@@ -4,7 +4,6 @@
  * @version 4.8.3
  */
 
-<?php
 $servername = "localhost";
 $username = "root";
 $password = "123456";
@@ -17,7 +16,7 @@ if ($conn->connect_error) {
 } 
 
 // Create database
-$sql = "CREATE DATABASE ecommerce";
+$sql = "CREATE DATABASE ecommerce.sql";
 if ($conn->query($sql) === TRUE) {
     echo "Database created successfully";
 } else {
@@ -25,7 +24,7 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-?>
+
 
 /**
  * Database `ecommerce`
@@ -74,3 +73,4 @@ $products = array(
   array('product_id' => '7','product_cat' => '1','product_brand' => '1','product_title' => 'Great Axe','product_price' => '10','product_desc' => '<p>Gets all the ladies</p>','product_image' => 'Great Axe.png','product_keywords' => 'greataxe, fighter'),
   array('product_id' => '8','product_cat' => '5','product_brand' => '2','product_title' => 'Ring Mail','product_price' => '30','product_desc' => '<p>To protect your holy bits</p>','product_image' => 'Ring Mail.png','product_keywords' => 'armour, cleric')
 );
+?>
