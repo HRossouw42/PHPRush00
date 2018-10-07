@@ -33,12 +33,14 @@ body {background:skyblue;}
 	width:1000px;
 	height:auto;
 	margin:auto;
+	background: lightgrey;
 }
 
 .header_wrapper{
 	width:1000px;
 	height:100px;
 	margin:auto;
+	
 }
 
 #logo {float:left;
