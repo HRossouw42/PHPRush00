@@ -1,6 +1,7 @@
 <!DOCTYPE>
 <?php
 	include("functions/functions.php");
+	//$sql = "SET GLOBAL sql_mode=\'\'";
 ?>
 <html>
 	<head>
@@ -63,13 +64,12 @@
 
 			<div id="content_area">
 				<?php cart(); ?>
-				
+
 				<div id="shopping_cart">
 					<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 					Welcome Guest! <b style="color:Yellow">Shopping Cart : </b> Total Items - Total Price <a href="cart.php" style="color:yellow">Go to Cart</a>
 					</span>
 				</div>
-				<?php getIp(); ?>
 
 				<div id="products_box">
 					<?php getPro(); ?>

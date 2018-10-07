@@ -60,6 +60,7 @@
 			</div>
 
 			<div id="content_area">
+			<?php cart(); ?>
 				<div id="shopping_cart">
 					<span style="float:right; font-size:18px; padding:5px; line-height:40px;">
 					Welcome Guest! <b style="color:Yellow">Shopping Cart : </b> Total Items - Total Price <a href="cart.php" style="color:yellow">Go to Cart</a>
@@ -92,7 +93,7 @@
 								
 								<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 								
-								<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+								<a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to Cart</button></a>
 							
 							</div>
 					";

@@ -28,21 +28,25 @@ function cart(){
 	
 		$check_pro = "select * from cart where ip_add='$ip' AND p_id='$pro_id'";
 		
-		$run_check = mysqli_query($con, $check_pro); 
+		$run_check = mysqli_query($con, $check_pro);
 		
-		if(mysqli_num_rows($run_check)>0){
+		$quant = 1;
+		
+		/*if(mysqli_num_rows($run_check)>0){
 	
 		echo "";
 		
 		}
 		else {
-		
-		$insert_pro = "insert into cart (p_id,ip_add) values ('$pro_id','$ip')";
+		*/
+		$insert_pro = "insert into cart (p_id,ip_add,qty) values ('$pro_id','$ip','$quant')";
 		
 		$run_pro = mysqli_query($con, $insert_pro); 
 		
-		echo "<script>window.open('index.php','_self')</script>";
-		}
+		if($insert_pro){
+			echo "<script>alert('Added to your cart of holding!')</script>";
+			echo "<script>window.open('index.php','_self')</script>";
+			}
 		
 	}
 	
