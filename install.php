@@ -3,74 +3,150 @@
  * Export to PHP Array plugin for PHPMyAdmin
  * @version 4.8.3
  */
-
 $servername = "localhost";
 $username = "root";
 $password = "123456";
+$dbname = "ecommerce";
+$tbl_cart = "cart";
+$tbl_cats = "categories";
+$tbl_brands = "brands";
+$tbl_prod = "products";
+$tbl_cust = "customers";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password);
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-// Create database
-$sql = "CREATE DATABASE ecommerce.sql";
-if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully";
-} else {
-    echo "Error creating database: " . $conn->error;
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error()."<br>");
 }
 
-$conn->close();
+// Create database if it hasn't been already
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if (mysqli_query($conn, $sql)) {
+    echo "Database created successfully<br>";
+} else {
+    echo "Error creating database: " . mysqli_error($conn)."<br>";
+}
 
+// Refresh connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error()."<br>");
+}
 
-/**
- * Database `ecommerce`
- */
+// Checkout Cart Table
+$sql = "CREATE TABLE IF NOT EXISTS $tbl_cart (
+  p_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+  ip_add VARCHAR(255) NOT NULL,
+  qty INT(10) NOT NULL)";
 
-/* `ecommerce`.`admins` */
-$admins = array(
-  array('user_id' => '1','user_email' => 'hrossouw@admin.com','user_pass' => '123456'),
-);
+if (mysqli_query($conn, $sql)) {
+  echo " Cart Table created successfully<br>";
+} else {
+  echo "Error creating table: ".mysqli_error($conn)."<br>";
+}
 
-/* `ecommerce`.`brands` */
-$brands = array(
-  array('brand_id' => '1','brand_title' => 'Fighter'),
-  array('brand_id' => '2','brand_title' => 'Cleric'),
-  array('brand_id' => '3','brand_title' => 'Rogue'),
-  array('brand_id' => '4','brand_title' => 'Wizard'),
-  array('brand_id' => '7','brand_title' => 'Paladin')
-);
+// Cat Category Table
+$sql = "CREATE TABLE IF NOT EXISTS $tbl_cats (
+	cat_id INT(100) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	cat_title TEXT NOT NULL)";
+	
+if (mysqli_query($conn, $sql)) {
+	echo "Categories Table created successfully<br>";
+} else {
+	echo "Error creating table: ".mysqli_error($conn)."<br>";
+}
 
-/* `ecommerce`.`cart` */
-$cart = array(
-);
+$sql = "INSERT INTO $tbl_cats (cat_id, cat_title) VALUES
+(1, 'Melee'),
+(2, 'Ranged'),
+(3, 'Staves'),
+(4, 'Spells'),
+(5, 'Armour'),
+(6, 'Misc'),
+(7, 'Adventure Kits')";
 
-/* `ecommerce`.`categories` */
-$categories = array(
-  array('cat_id' => '1','cat_title' => 'Melee'),
-  array('cat_id' => '2','cat_title' => 'Ranged'),
-  array('cat_id' => '3','cat_title' => 'Staves'),
-  array('cat_id' => '4','cat_title' => 'Spells'),
-  array('cat_id' => '5','cat_title' => 'Armour'),
-  array('cat_id' => '6','cat_title' => 'Misc'),
-  array('cat_id' => '7','cat_title' => 'Adventure Kits')
-);
+if (mysqli_query($conn, $sql)) {
+    echo "Categories created successfully<br>";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn)."<br>";
+}
 
-/* `ecommerce`.`customers` */
-$customers = array(
-);
+// brands Table
+$sql = "CREATE TABLE IF NOT EXISTS $tbl_brand (
+    brand_id INT(100) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+    brand_title TEXT NOT NULL)";
+    
+if (mysqli_query($conn, $sql)) {
+    echo "brand Table created successfully<br>";
+} else {
+    echo "Error creating table: ".mysqli_error($conn)."<br>";
+}
 
-/* `ecommerce`.`products` */
-$products = array(
-  array('product_id' => '2','product_cat' => '5','product_brand' => '3','product_title' => 'Leather Armour','product_price' => '10','product_desc' => '<p>Made from fresh Bessy</p>','product_image' => 'Leather Armour.png','product_keywords' => 'armour, rogue'),
-  array('product_id' => '3','product_cat' => '5','product_brand' => '1','product_title' => 'Chain Shirt','product_price' => '50','product_desc' => '<p>Just like mama dwarf used to make</p>','product_image' => 'Chain Shirt.png','product_keywords' => 'armour, fighter'),
-  array('product_id' => '4','product_cat' => '2','product_brand' => '3','product_title' => 'Longbow','product_price' => '50','product_desc' => '<p>Attack with the airspeed velocity of an unladen swallow!</p>','product_image' => 'Longbow.png','product_keywords' => 'ranged, bow, rogue'),
-  array('product_id' => '5','product_cat' => '1','product_brand' => '2','product_title' => 'Mace','product_price' => '5','product_desc' => '<p>Apply mace to face for best results</p>','product_image' => 'Mace.png','product_keywords' => 'melee, cleric'),
-  array('product_id' => '6','product_cat' => '3','product_brand' => '4','product_title' => 'Rod','product_price' => '5','product_desc' => '<p>Turns you into a newt</p>','product_image' => 'Staff.png','product_keywords' => 'staff, wizard'),
-  array('product_id' => '7','product_cat' => '1','product_brand' => '1','product_title' => 'Great Axe','product_price' => '10','product_desc' => '<p>Gets all the ladies</p>','product_image' => 'Great Axe.png','product_keywords' => 'greataxe, fighter'),
-  array('product_id' => '8','product_cat' => '5','product_brand' => '2','product_title' => 'Ring Mail','product_price' => '30','product_desc' => '<p>To protect your holy bits</p>','product_image' => 'Ring Mail.png','product_keywords' => 'armour, cleric')
-);
+$sql = "INSERT INTO $tbl_brand (brand_id, brand_title) VALUES
+(1, 'Fighter'),
+(2, 'Cleric'),
+(3, 'Rogue');
+(4, 'Wizard');
+(5, 'Paladin')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "brand records created successfully<br>";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn)."<br>";
+}
+
+// Details of Products Table
+$sql = "CREATE TABLE IF NOT EXISTS $tbl_prod (
+product_id INT(100) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+product_cat VARCHAR(30) NOT NULL,
+product_brand VARCHAR(30) NOT NULL,
+product_title VARCHAR(30) NOT NULL,
+product_price VARCHAR(100) NOT NULL,
+product_desc TEXT NOT NULL,
+product_image TEXT NOT NULL,
+product_keywords TEXT NOT NULL)";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Products Table created successfully<br>";
+} else {
+  echo "Error creating table: ".mysqli_error($conn)."<br>";
+}
+
+$sql = "INSERT INTO `products` (`product_id`, `product_cat`, `product_brand`, `product_title`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES
+(2, 5, 3, 'Leather Armour', 10, '<p>Made from fresh Bessy</p>', 'Leather Armour.png', 'armour, rogue'),
+(3, 5, 1, 'Chain Shirt', 50, '<p>Just like mama dwarf used to make</p>', 'Chain Shirt.png', 'armour, fighter'),
+(4, 2, 3, 'Longbow', 50, '<p>Attack with the airspeed velocity of an unladen swallow!</p>', 'Longbow.png', 'ranged, bow, rogue'),
+(5, 1, 2, 'Mace', 5, '<p>Apply mace to face for best results</p>', 'Mace.png', 'melee, cleric'),
+(6, 3, 4, 'Rod', 5, '<p>Turns you into a newt</p>', 'Staff.png', 'staff, wizard'),
+(7, 1, 1, 'Great Axe', 10, '<p>Gets all the ladies</p>', 'Great Axe.png', 'greataxe, fighter'),
+(8, 5, 2, 'Ring Mail', 30, '<p>To protect your holy bits</p>', 'Ring Mail.png', 'armour, cleric');";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Products records created successfully<br>";
+} else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($conn)."<br>";
+}
+
+// User Table
+$sql = "CREATE TABLE IF NOT EXISTS $tbl_cust (
+	customer_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	customer_ip VARCHAR(255) NOT NULL,
+	customer_email VARCHAR(255) NOT NULL,
+  customer_pass VARCHAR(100) NOT NULL,
+	)";
+	
+if (mysqli_query($conn, $sql)) {
+	echo "Table Users created successfully<br>";
+} else {
+	echo "Error creating table: ".mysqli_error($conn)."<br>";
+}
+
+mysqli_close($conn);
 ?>
+
+Collapse 
+Message Input
+
+
+Message @hrossouw (CPT) 

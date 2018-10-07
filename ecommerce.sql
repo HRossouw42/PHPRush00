@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 07, 2018 at 09:08 AM
+-- Generation Time: Oct 07, 2018 at 10:57 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.1.22
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecommerce`
 --
-CREATE DATABASE IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ecommerce`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +28,6 @@ USE `ecommerce`;
 -- Table structure for table `admins`
 --
 
-DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins` (
   `user_id` int(10) NOT NULL,
   `user_email` varchar(255) NOT NULL,
@@ -51,7 +48,6 @@ INSERT INTO `admins` (`user_id`, `user_email`, `user_pass`) VALUES
 -- Table structure for table `brands`
 --
 
-DROP TABLE IF EXISTS `brands`;
 CREATE TABLE `brands` (
   `brand_id` int(11) NOT NULL,
   `brand_title` text NOT NULL
@@ -74,12 +70,19 @@ INSERT INTO `brands` (`brand_id`, `brand_title`) VALUES
 -- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `p_id` int(10) NOT NULL,
   `ip_add` varchar(255) NOT NULL,
   `qty` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`p_id`, `ip_add`, `qty`) VALUES
+(2, '::1', 1),
+(7, '::1', 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +90,6 @@ CREATE TABLE `cart` (
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `cat_id` int(100) NOT NULL,
   `cat_title` text NOT NULL
@@ -112,7 +114,6 @@ INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
 -- Table structure for table `customers`
 --
 
-DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
   `customer_id` int(10) NOT NULL,
   `customer_ip` varchar(255) NOT NULL,
@@ -120,13 +121,19 @@ CREATE TABLE `customers` (
   `customer_pass` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`customer_id`, `customer_ip`, `customer_email`, `customer_pass`) VALUES
+(1, '1', 'admin@admin.com', 'test');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `product_id` int(100) NOT NULL,
   `product_cat` int(100) NOT NULL,
