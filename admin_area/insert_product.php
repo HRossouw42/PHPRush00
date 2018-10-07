@@ -8,12 +8,19 @@
 <html>
 <head>
 	<title>Inserting Product</title>
+	
+	<!-- Text area editor -->
+	<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+		<script>
+			tinymce.init({selector:'textarea'});
+		</script>
+
 </head>
 <body bgcolor="skyblue">
 	
 	<form action="insert_product.php" method="post" enctype="multipart/form-data">
 
-		<table align="center" width="600" border="2" bgcolor="whitesmoke">
+		<table align="center" width="700" border="2" bgcolor="whitesmoke">
 			<tr align="center">
 				<td colspan="7"><h2>Insert New Post Here</h2></td>
 			</tr>
