@@ -2,6 +2,128 @@
 
 $con = mysqli_connect("localhost", "root", "123456", "ecommerce");
 
+ // IP address of user
+function getIp() {
+    $ip = $_SERVER['REMOTE_ADDR'];
+ 
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+ 
+    return $ip;
+}
+
+//creating the cart
+function cart(){
+
+	if(isset($_GET['add_cart'])){
+	
+		global $con; 
+		
+		$ip = getIp();
+		
+		$pro_id = $_GET['add_cart'];
+	
+		$check_pro = "select * from cart where ip_add='$ip' AND p_id='$pro_id'";
+		
+		$run_check = mysqli_query($con, $check_pro); 
+		
+		if(mysqli_num_rows($run_check)>0){
+	
+		echo "";
+		
+		}
+		else {
+		
+		$insert_pro = "insert into cart (p_id,ip_add) values ('$pro_id','$ip')";
+		
+		$run_pro = mysqli_query($con, $insert_pro); 
+		
+		echo "<script>window.open('index.php','_self')</script>";
+		}
+		
+	}
+	
+}
+
+// qty items for cart
+	
+function total_items(){
+	
+	if(isset($_GET['add_cart'])){
+	
+		global $con; 
+		
+		$ip = getIp(); 
+		
+		$get_items = "select * from cart where ip_add='$ip'";
+		
+		$run_items = mysqli_query($con, $get_items); 
+		
+		$count_items = mysqli_num_rows($run_items);
+		
+		}
+		
+		else {
+		
+		global $con; 
+		
+		$ip = getIp(); 
+		
+		$get_items = "select * from cart where ip_add='$ip'";
+		
+		$run_items = mysqli_query($con, $get_items); 
+		
+		$count_items = mysqli_num_rows($run_items);
+		
+		}
+	
+	echo $count_items;
+	}
+	  
+// total price of the items for cart
+		
+function total_price(){
+
+	$total = 0;
+	
+	global $con; 
+	
+	$ip = getIp(); 
+	
+	$sel_price = "select * from cart where ip_add='$ip'";
+	
+	$run_price = mysqli_query($con, $sel_price); 
+	
+	while($p_price=mysqli_fetch_array($run_price)){
+		
+		$pro_id = $p_price['p_id']; 
+		
+		$pro_price = "select * from products where product_id='$pro_id'";
+		
+		$run_pro_price = mysqli_query($con,$pro_price); 
+		
+		while ($pp_price = mysqli_fetch_array($run_pro_price)){
+		
+		$product_price = array($pp_price['product_price']);
+		
+		$values = array_sum($product_price);
+		
+		$total +=$values;
+		
+		}
+	
+	
+	}
+	
+	echo "$" . $total;
+	
+
+}
+
+
 //getting categories of products
 
 function getCats(){
@@ -64,11 +186,11 @@ function getPro(){
 						<h3>$pro_title</h3>
 						<img src='admin_area/product_images/$pro_image' width='180' height='180' />
 
-						<p><b>GP $pro_price</b></p>
+						<p><b>Price: GP $pro_price</b></p>
 
 						<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 
-						<a href='index.php?pro_id=$pro_id'><button style='float:right'>Add to Cart</button></a>
+						<a href='index.php?add_cart=$pro_id'><button style='float:right'>Add to Cart</button></a>
 					</div>
 			";
 		}
@@ -112,7 +234,7 @@ function getCatPro(){
 					
 					<img src='admin_area/product_images/$pro_image' width='180' height='180' />
 					
-					<p><b> GP $pro_price </b></p>
+					<p><b>Price: GP $pro_price </b></p>
 					
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
@@ -166,7 +288,7 @@ function getBrandPro(){
 					
 					<img src='admin_area/product_images/$pro_image' width='180' height='180' />
 					
-					<p><b> GP $pro_price </b></p>
+					<p><b>Price: GP $pro_price </b></p>
 					
 					<a href='details.php?pro_id=$pro_id' style='float:left;'>Details</a>
 					
