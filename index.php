@@ -14,9 +14,9 @@
 
 		<div class="header_wrapper">
 		
-			<img id="logo" src="images/logo.png" />
+			<img id="logo" src="images/logo2.png" />
 			
-			<img id="banner" src="images/logo.png" />
+			<img id="banner" src="images/logo3.png" />
 		
 		</div>
 		
@@ -61,7 +61,12 @@
 
 			</div>
 
-			<div id="content_area">content area</div>
+			<div id="content_area">
+				<div id="products_box">
+					<?php getPro(); ?>
+				</div>
+
+			</div>
 		</div>
 
 		<div id="footer">

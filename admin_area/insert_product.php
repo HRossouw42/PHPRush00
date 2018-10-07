@@ -93,7 +93,7 @@
 </body>
 </html>
 
-<!-- Insertingdata into database -->
+<!-- Inserting data into database -->
 <?php
 
 if (isset($_POST['insert_post']))
